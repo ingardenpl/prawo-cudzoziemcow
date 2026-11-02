@@ -416,7 +416,7 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
   --akcent:#E39A8E;--ok:#8FD0A8;--zle:#F09A9A;--wpia:#0A1226;--zloto:#D9B66A;--display:"Inter",sans-serif;--kino:"Cormorant Garamond",Georgia,serif;color-scheme:dark}
 :root{--st:#1B2A4A}
 :root[data-theme=dark]{--st:#D9B66A}
-:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#8A6A1F}
+:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#6E5310}
 :root[data-theme=dark] [data-p="1"]{--st:#9DB4E8}:root[data-theme=dark] [data-p="2"]{--st:#E39A8E}:root[data-theme=dark] [data-p="3"]{--st:#7FCDB8}:root[data-theme=dark] [data-p="4"]{--st:#D9B66A}
 #niebo,.mglawica,:root[data-theme=dark] #niebo,:root[data-theme=dark] .mglawica{display:none!important}
 html body,:root[data-theme=dark] body{background-color:var(--tlo);
@@ -465,7 +465,7 @@ html body .okladka p,html body .okladka .male{color:#E9DFC4}
 html body .okladka a{color:#E8CC86}
 html body .okladka .instrukcja,:root[data-theme=dark] .okladka .instrukcja{background:rgba(255,255,255,.06);border-color:color-mix(in srgb,#D9B66A 40%,transparent);color:#F4E7C5;-webkit-backdrop-filter:none;backdrop-filter:none;text-align:left}
 .okladka .glob{width:min(34vw,120px);height:auto;margin:0 auto .6em;display:block}
-.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 55%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
+.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 80%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
 html body .horyzont-ramka{display:none}
 
 /* karta przystanku: strona z pieczątką */
@@ -535,6 +535,25 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 .strona-paszportu .miejsce svg{width:100%;height:100%;color:var(--akcent);transform:rotate(-10deg)}
 @media print{.stempel{animation:none}}
 @media (prefers-reduced-motion: reduce){.stempel{animation:none}}
+
+/* audyt UX: większe pole dotyku przycisków w pasku górnym (wygląd bez zmian) */
+.gora button{position:relative}
+.gora button::after{content:"";position:absolute;inset:-6px -4px}
+/* widoczny fokus z klawiatury */
+.btn:focus-visible,.wybor:focus-visible,.gora button:focus-visible,.dol button:focus-visible,summary:focus-visible,.os button:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+
+/* audyt UX: długie słowa w tytule okładki na wąskich telefonach */
+html body .okladka h1{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+@media (max-width:360px){html body .okladka h1,:root[data-theme=dark] .okladka h1{letter-spacing:.04em;font-size:1.45rem}}
+/* słowniczek zwijany: termin i rejestr widać od razu, użycie po stuknięciu */
+.slowka.zwijane .slowko{cursor:pointer;position:relative;padding-right:34px}
+.slowka.zwijane .slowko::after{content:"+";position:absolute;right:12px;top:9px;font-family:var(--mono);font-weight:700;color:var(--tekst2)}
+.slowka.zwijane .slowko[aria-expanded=true]::after{content:"−"}
+.slowka.zwijane .slowko:not([aria-expanded=true]) .u{display:none}
+.slowka.zwijane .slowko:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+.slowka-pomoc{font-size:.82rem;color:var(--tekst2);margin:.2em 0 .4em}
+/* audyt UX: gęstsze pytania na najwęższych telefonach */
+@media (max-width:360px){html body .wybor{padding:8px 11px;min-height:42px;font-size:.92rem}html body .pyt.ramka{padding:10px 11px}html body .wybory{gap:6px}}
 
 </style>
 </head>
@@ -723,7 +742,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 <p>Przeczytajcie odpowiedź sąsiedniej pary. Oceńcie ją w czterech punktach:</p>
 <ol><li>Czy wskazano podstawę pobytu?</li><li>Czy podano termin?</li><li>Czy użyto słów prawnych, a nie potocznych?</li><li>Czy zaznaczono, co trzeba jeszcze sprawdzić?</li></ol>
 <p>Potem otwórzcie klucz.</p>
-<details class="krok"><summary>Klucz: wariant a (list przyjęcia)</summary><p>Mateo może ubiegać się o zezwolenie na pobyt czasowy w celu kształcenia się na studiach. Uczelnia wypełnia załącznik do wniosku w <span class="g" data-g="Moduł Obsługi Spraw: system internetowy, w którym od 27 kwietnia 2026 r. składa się wnioski o pobyt">MOS</span>. Mateo potrzebuje też dowodu opłaty za studia, ubezpieczenia i środków na utrzymanie. Podstawa: art. 144 ust. 1.</p><p>Termin: wniosek najpóźniej w ostatnim dniu legalnego pobytu. Wniosek złożony w czasie nielegalnego pobytu grozi odmową. Od 27 kwietnia 2026 r. wniosek składa się wyłącznie w MOS, patrz spotkanie 3. Podstawa: art. 105 ust. 1 i art. 100 ust. 1 pkt 9.</p><p>Inna droga: wiza krajowa na studia, wydana przez konsula przed wyjazdem.</p></details>
+<details class="krok"><summary>Klucz: wariant a (list przyjęcia)</summary><p>Mateo może ubiegać się o zezwolenie na pobyt czasowy w celu kształcenia się na studiach. Uczelnia wypełnia załącznik do wniosku w <span class="g" data-g="Moduł Obsługi Spraw: portal Urzędu do Spraw Cudzoziemców, w którym od 27 kwietnia 2026 r. składa się wnioski o pobyt">MOS</span>. Mateo potrzebuje też dowodu opłaty za studia, ubezpieczenia i środków na utrzymanie. Podstawa: art. 144 ust. 1.</p><p>Termin: wniosek najpóźniej w ostatnim dniu legalnego pobytu. Wniosek złożony w czasie nielegalnego pobytu grozi odmową. Od 27 kwietnia 2026 r. wniosek składa się wyłącznie w MOS, patrz spotkanie 3. Podstawa: art. 105 ust. 1 i art. 100 ust. 1 pkt 9.</p><p>Inna droga: wiza krajowa na studia, wydana przez konsula przed wyjazdem.</p></details>
 <details class="krok"><summary>Klucz: wariant b (wiza D Hiszpanii)</summary><p>Wiza D Hiszpanii daje pobyt w Hiszpanii. W Polsce wolno jej przebywać krótko, do 90 dni w okresie 180 dni. Wynika to z konwencji wykonawczej Schengen.</p><p>Wniosku o zezwolenie na pobyt czasowy i pracę nie złoży, chyba że korzysta z mobilności. Inne drogi: wiza krajowa z polskiego konsulatu albo inna podstawa pobytu. Pilnuje ważności hiszpańskiej wizy i limitu dni w Polsce. Podstawa: art. 116 pkt 7.</p></details>
 <details class="krok"><summary>Klucz: wariant c (85 dni)</summary><p>Zostało 5 dni, jeśli wszystkie 85 dni mieszczą się w ostatnich 180 dniach. Po limicie grozi odmowa wjazdu i kłopoty z kontrolą. Podstawa: art. 28 ust. 1 pkt 3.</p><p>Może wyjechać przed 90. dniem albo złożyć wniosek o pobyt czasowy najpóźniej w ostatnim dniu legalnego pobytu. Przy kompletnym wniosku jej pobyt uznaje się za legalny od złożenia do ostatecznej decyzji. Wyjazd nie zeruje licznika. Podstawa: art. 108 ust. 1 pkt 2.</p></details>
 </div></section>
@@ -790,7 +809,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
   <h2>Sprawdź się: 5 pytań</h2>
   <div class="ramka akcent" id="quizyPodsum" hidden></div>
   <p>Jedno podejście do każdego pytania. Wynik widzisz na dole.</p>
-  <div class="pyt ramka" data-ok="2"><p><strong>1. Co jest prawdą o wjeździe i pobycie?</strong></p><div class="wybory"><button class="wybor" type="button">wjazd daje prawo do pobytu przez rok</button><button class="wybor" type="button">pobyt zaczyna się dopiero po 90 dniach</button><button class="wybor" type="button">wjazd i pobyt mają osobne podstawy i terminy</button></div><p class="male odslona" hidden>Przejście granicy nie daje prawa do pobytu dłuższego niż wynika z wizy lub ruchu bezwizowego.</p></div><div class="pyt ramka" data-ok="1"><p><strong>2. Jak długo najwyżej jest ważna wiza krajowa, czyli „wiza D”?</strong></p><div class="wybory"><button class="wybor" type="button">najwyżej 90 dni</button><button class="wybor" type="button">najwyżej 1 rok</button><button class="wybor" type="button">najwyżej 5 lat</button></div><p class="male odslona" hidden>Ważność wizy krajowej nie przekracza 1 roku (art. 59).</p></div><div class="pyt ramka" data-ok="0"><p><strong>3. Konsul odmówił wizy krajowej. Co składasz?</strong></p><div class="wybory"><button class="wybor" type="button">wniosek o ponowne rozpatrzenie sprawy do konsula</button><button class="wybor" type="button">odwołanie do Komendanta Głównego Straży Granicznej</button><button class="wybor" type="button">wniosek o wizę Schengen w tym samym dniu</button></div><p class="male odslona" hidden>Wniosek o ponowne rozpatrzenie sprawy składasz do tego samego organu w 14 dni.</p></div><div class="pyt ramka" data-ok="1"><p><strong>4. Czy ETIAS i EES to to samo?</strong></p><div class="wybory"><button class="wybor" type="button">tak, oba rejestrują wjazdy i wyjazdy cudzoziemców</button><button class="wybor" type="button">nie, EES rejestruje wjazdy i wyjazdy, ETIAS to zezwolenie</button><button class="wybor" type="button">nie, ETIAS rejestruje wjazdy, a EES to zezwolenie</button></div><p class="male odslona" hidden>EES działa od 10 kwietnia 2026 r., ETIAS jeszcze nie działa.</p></div><div class="pyt ramka" data-ok="2"><p><strong>5. Który warunek wjazdu wynika z art. 28 ustawy o cudzoziemcach?</strong></p><div class="wybory"><button class="wybor" type="button">znajomość języka polskiego na poziomie B1</button><button class="wybor" type="button">wizyta w konsulacie przed każdą podróżą</button><button class="wybor" type="button">środki na pobyt i na powrót</button></div><p class="male odslona" hidden>Art. 28 ust. 1 pkt 5 mówi o wystarczających środkach finansowych na pobyt i na powrót.</p></div>
+  <div class="pyt ramka" data-ok="2"><p><strong>1. Co jest prawdą o wjeździe i pobycie?</strong></p><div class="wybory"><button class="wybor" type="button">wjazd daje prawo do pobytu przez rok</button><button class="wybor" type="button">pobyt zaczyna się dopiero po 90 dniach</button><button class="wybor" type="button">wjazd i pobyt mają osobne podstawy i terminy</button></div><p class="male odslona" hidden>Przejście granicy nie daje prawa do pobytu dłuższego niż wynika z wizy lub ruchu bezwizowego.</p></div><div class="pyt ramka" data-ok="1"><p><strong>2. Jak długo najwyżej jest ważna wiza krajowa, czyli „wiza D”?</strong></p><div class="wybory"><button class="wybor" type="button">najwyżej 90 dni</button><button class="wybor" type="button">najwyżej 1 rok</button><button class="wybor" type="button">najwyżej 5 lat</button></div><p class="male odslona" hidden>Ważność wizy krajowej nie przekracza 1 roku. Podstawa: art. 59.</p></div><div class="pyt ramka" data-ok="0"><p><strong>3. Konsul odmówił wizy krajowej. Co składasz?</strong></p><div class="wybory"><button class="wybor" type="button">wniosek o ponowne rozpatrzenie sprawy do konsula</button><button class="wybor" type="button">odwołanie do Komendanta Głównego Straży Granicznej</button><button class="wybor" type="button">wniosek o wizę Schengen w tym samym dniu</button></div><p class="male odslona" hidden>Wniosek o ponowne rozpatrzenie sprawy składasz do tego samego organu w 14 dni.</p></div><div class="pyt ramka" data-ok="1"><p><strong>4. Czy ETIAS i EES to to samo?</strong></p><div class="wybory"><button class="wybor" type="button">tak, oba rejestrują wjazdy i wyjazdy cudzoziemców</button><button class="wybor" type="button">nie, EES rejestruje wjazdy i wyjazdy, ETIAS to zezwolenie</button><button class="wybor" type="button">nie, ETIAS rejestruje wjazdy, a EES to zezwolenie</button></div><p class="male odslona" hidden>EES działa od 10 kwietnia 2026 r., ETIAS jeszcze nie działa.</p></div><div class="pyt ramka" data-ok="2"><p><strong>5. Który warunek wjazdu wynika z art. 28 ustawy o cudzoziemcach?</strong></p><div class="wybory"><button class="wybor" type="button">znajomość języka polskiego na poziomie B1</button><button class="wybor" type="button">wizyta w konsulacie przed każdą podróżą</button><button class="wybor" type="button">środki na pobyt i na powrót</button></div><p class="male odslona" hidden>Art. 28 ust. 1 pkt 5 mówi o wystarczających środkach finansowych na pobyt i na powrót.</p></div>
   <p class="wynik-licznik" id="quizWynik"></p>
 </div>
 </section>
@@ -822,7 +841,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
   <span class="etap">Źródła</span>
   <h2>Przepisy i źródła</h2>
   <p>Na tym opiera się dzisiejsze spotkanie. Rozwiń grupę. Prawo dla cudzoziemców często się zmienia: zawsze sprawdzaj aktualny stan w źródle urzędowym.</p>
-  <details class="krok"><summary>Przepisy</summary><ol class="bib"><li>Ustawa z 12 grudnia 2013 r. o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079 ze zm.: art. 23, 24, 25, 28, 58–60, 76, 100, 105, 106c, 108, 116, 144. Sprawdzone w tekście ujednoliconym ISAP z 7 kwietnia 2026 r.</li><li>Ustawa z 4 kwietnia 2025 r. o zmianie niektórych ustaw w celu wyeliminowania nieprawidłowości w systemie wizowym Rzeczypospolitej Polskiej, Dz.U. 2025 poz. 622.</li><li>Ustawa z 21 listopada 2025 r. o zmianie ustawy o cudzoziemcach oraz niektórych innych ustaw, Dz.U. 2025 poz. 1794, i komunikat MSWiA z 10 kwietnia 2026 r., M.P. 2026 poz. 370 (wnioski w MOS od 27 kwietnia 2026 r.).</li><li>Rozporządzenie (UE) 2016/399 (kodeks graniczny Schengen), art. 6 (warunki wjazdu).</li><li>Rozporządzenie (UE) 2017/2226 (System Wjazdu/Wyjazdu) i rozporządzenie (UE) 2018/1240 (ETIAS).</li></ol></details><details class="krok"><summary>Źródła urzędowe</summary><ol class="bib"><li>Komisja Europejska, Smart borders: home-affairs.ec.europa.eu/policies/schengen/smart-borders_en (dostęp 29.10.2026).</li><li>Komisja Europejska, travel-europe.europa.eu (EES i ETIAS dla podróżnych).</li><li>Teksty ustaw: eli.gov.pl i api.sejm.gov.pl.</li><li>Moduł Obsługi Spraw: mos.cudzoziemcy.gov.pl, opisy wiz i zezwoleń.</li></ol></details><details class="krok"><summary>Literatura</summary><ol class="bib"><li>FRA i Rada Europy, Podręcznik europejskiego prawa dotyczącego azylu, granic i imigracji, rozdział 1 (dostęp do terytorium).</li></ol></details>
+  <details class="krok"><summary>Przepisy</summary><ol class="bib"><li>Ustawa z 12 grudnia 2013 r. o cudzoziemcach, tekst jednolity Dz.U. 2025 poz. 1079 ze zm.: art. 23, 24, 25, 28, 58–60, 76, 100, 105, 106c, 108, 116, 144. Sprawdzone w tekście ujednoliconym ISAP z 7 kwietnia 2026 r.</li><li>Ustawa z 4 kwietnia 2025 r. o zmianie niektórych ustaw w celu wyeliminowania nieprawidłowości w systemie wizowym Rzeczypospolitej Polskiej, Dz.U. 2025 poz. 622.</li><li>Ustawa z 21 listopada 2025 r. o zmianie ustawy o cudzoziemcach oraz niektórych innych ustaw, Dz.U. 2025 poz. 1794, i komunikat MSWiA z 10 kwietnia 2026 r., M.P. 2026 poz. 370 (wnioski w MOS od 27 kwietnia 2026 r.).</li><li>Rozporządzenie (UE) 2016/399 (kodeks graniczny Schengen), art. 6 (warunki wjazdu).</li><li>Rozporządzenie (UE) 2017/2226 (System Wjazdu/Wyjazdu) i rozporządzenie (UE) 2018/1240 (ETIAS).</li></ol></details><details class="krok"><summary>Źródła urzędowe</summary><ol class="bib"><li>Komisja Europejska, Smart borders: home-affairs.ec.europa.eu/policies/schengen/smart-borders_en (dostęp 29 października 2026 r.).</li><li>Komisja Europejska, travel-europe.europa.eu (EES i ETIAS dla podróżnych).</li><li>Teksty ustaw: eli.gov.pl i api.sejm.gov.pl.</li><li>Moduł Obsługi Spraw: mos.cudzoziemcy.gov.pl, opisy wiz i zezwoleń.</li></ol></details><details class="krok"><summary>Literatura</summary><ol class="bib"><li>FRA i Rada Europy, Podręcznik europejskiego prawa dotyczącego azylu, granic i imigracji, rozdział 1 (dostęp do terytorium).</li></ol></details>
 </div>
 </section>
 
@@ -1238,6 +1257,13 @@ wsz('.g[data-g]').forEach(function(el){el.tabIndex=0;el.setAttribute('role','but
 document.addEventListener('click',zamknij);document.addEventListener('slajd',zamknij);
 addEventListener('keydown',function(e){if(e.key==='Escape')zamknij()});
 
+/* ---------- Słowniczek zwijany: przy więcej niż 4 hasłach użycie pokazuje się po stuknięciu ---------- */
+wsz('.slowka').forEach(function(sl){var h=wsz('.slowko',sl);if(h.length<5||!sl.querySelector('.slowko .u'))return;sl.classList.add('zwijane');
+  var p=document.createElement('p');p.className='slowka-pomoc';p.textContent='Stuknij hasło, żeby zobaczyć użycie i uwagi.';sl.parentNode.insertBefore(p,sl);
+  h.forEach(function(x){if(!x.querySelector('.u'))return;x.tabIndex=0;x.setAttribute('role','button');x.setAttribute('aria-expanded','false');
+    function t(){x.setAttribute('aria-expanded',x.getAttribute('aria-expanded')==='true'?'false':'true')}
+    x.addEventListener('click',function(e){if(e.target.closest('.g'))return;t()});x.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})})});
+
 /* ---------- Zadania do oddania ---------- */
 wsz('.zadanie[data-zadanie]').forEach(function(z){var id=z.dataset.zadanie,klucz=KL+'zad:'+id,dane={};try{dane=JSON.parse(gl(klucz)||'{}')}catch(e){}
   var tytul=z.dataset.tytul||('Zadanie '+id),pola=wsz('[data-pole]',z);
@@ -1245,10 +1271,11 @@ wsz('.zadanie[data-zadanie]').forEach(function(z){var id=z.dataset.zadanie,klucz
   var ai=document.createElement('div');ai.innerHTML='<label>Czy korzystałeś/korzystałaś z AI lub tłumacza? Do czego? (jedno zdanie)</label><input type="text" data-ai>';z.appendChild(ai);
   var pr=document.createElement('div');pr.className='przyciski';pr.innerHTML='<button class="btn glowny" type="button" data-kopiuj>Kopiuj odpowiedź</button><button class="btn" type="button" data-pobierz>Pobierz plik .txt</button>';z.appendChild(pr);
   var st=document.createElement('p');st.className='status';st.setAttribute('aria-live','polite');z.appendChild(st);
+  var tz=null;function zapisano(){st.textContent='Zapisano w telefonie.';clearTimeout(tz);tz=setTimeout(function(){if(st.textContent==='Zapisano w telefonie.')st.textContent=''},2500)}
   var ii=z.querySelector('[data-imie]'),ai2=z.querySelector('[data-ai]');ii.value=gl('cu:imie')||'';ai2.value=dane._ai||'';
   pola.forEach(function(p){var k=p.dataset.pole;if(dane[k])p.value=dane[k];var lc=null;if(p.dataset.slowa){lc=document.createElement('p');lc.className='licz';p.after(lc)}
     function licz(){if(lc){var n=(p.value.trim().match(/\S+/g)||[]).length;lc.textContent=n+' słów (cel: '+p.dataset.slowa+')'}}licz();
-    p.addEventListener('input',function(){dane[k]=p.value;gz(klucz,JSON.stringify(dane));licz()})});
+    p.addEventListener('input',function(){dane[k]=p.value;gz(klucz,JSON.stringify(dane));licz();zapisano()})});
   ii.addEventListener('input',function(){gz('cu:imie',ii.value)});ai2.addEventListener('input',function(){dane._ai=ai2.value;gz(klucz,JSON.stringify(dane))});
   function tekst(){var t=[(document.title||'').replace(/^\[prowadzący\] /,''),tytul,'Imię i nazwisko: '+(ii.value||'…'),''];
     pola.forEach(function(p){var lab=z.querySelector('label[for="'+p.id+'"]'),n=lab?lab.textContent:(p.getAttribute('aria-label')||p.dataset.pole);t.push(n);t.push(p.value.trim()||'(brak odpowiedzi)');t.push('')});

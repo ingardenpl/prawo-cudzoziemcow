@@ -416,7 +416,7 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
   --akcent:#E39A8E;--ok:#8FD0A8;--zle:#F09A9A;--wpia:#0A1226;--zloto:#D9B66A;--display:"Inter",sans-serif;--kino:"Cormorant Garamond",Georgia,serif;color-scheme:dark}
 :root{--st:#1B2A4A}
 :root[data-theme=dark]{--st:#D9B66A}
-:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#8A6A1F}
+:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#6E5310}
 :root[data-theme=dark] [data-p="1"]{--st:#9DB4E8}:root[data-theme=dark] [data-p="2"]{--st:#E39A8E}:root[data-theme=dark] [data-p="3"]{--st:#7FCDB8}:root[data-theme=dark] [data-p="4"]{--st:#D9B66A}
 #niebo,.mglawica,:root[data-theme=dark] #niebo,:root[data-theme=dark] .mglawica{display:none!important}
 html body,:root[data-theme=dark] body{background-color:var(--tlo);
@@ -465,7 +465,7 @@ html body .okladka p,html body .okladka .male{color:#E9DFC4}
 html body .okladka a{color:#E8CC86}
 html body .okladka .instrukcja,:root[data-theme=dark] .okladka .instrukcja{background:rgba(255,255,255,.06);border-color:color-mix(in srgb,#D9B66A 40%,transparent);color:#F4E7C5;-webkit-backdrop-filter:none;backdrop-filter:none;text-align:left}
 .okladka .glob{width:min(34vw,120px);height:auto;margin:0 auto .6em;display:block}
-.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 55%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
+.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 80%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
 html body .horyzont-ramka{display:none}
 
 /* karta przystanku: strona z pieczątką */
@@ -536,6 +536,25 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 @media print{.stempel{animation:none}}
 @media (prefers-reduced-motion: reduce){.stempel{animation:none}}
 
+/* audyt UX: większe pole dotyku przycisków w pasku górnym (wygląd bez zmian) */
+.gora button{position:relative}
+.gora button::after{content:"";position:absolute;inset:-6px -4px}
+/* widoczny fokus z klawiatury */
+.btn:focus-visible,.wybor:focus-visible,.gora button:focus-visible,.dol button:focus-visible,summary:focus-visible,.os button:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+
+/* audyt UX: długie słowa w tytule okładki na wąskich telefonach */
+html body .okladka h1{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+@media (max-width:360px){html body .okladka h1,:root[data-theme=dark] .okladka h1{letter-spacing:.04em;font-size:1.45rem}}
+/* słowniczek zwijany: termin i rejestr widać od razu, użycie po stuknięciu */
+.slowka.zwijane .slowko{cursor:pointer;position:relative;padding-right:34px}
+.slowka.zwijane .slowko::after{content:"+";position:absolute;right:12px;top:9px;font-family:var(--mono);font-weight:700;color:var(--tekst2)}
+.slowka.zwijane .slowko[aria-expanded=true]::after{content:"−"}
+.slowka.zwijane .slowko:not([aria-expanded=true]) .u{display:none}
+.slowka.zwijane .slowko:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+.slowka-pomoc{font-size:.82rem;color:var(--tekst2);margin:.2em 0 .4em}
+/* audyt UX: gęstsze pytania na najwęższych telefonach */
+@media (max-width:360px){html body .wybor{padding:8px 11px;min-height:42px;font-size:.92rem}html body .pyt.ramka{padding:10px 11px}html body .wybory{gap:6px}}
+
 </style>
 </head>
 <body>
@@ -598,8 +617,8 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 <section class="slajd" data-p="1" data-tytul="Słowniczek">
 <div class="wnetrze"><span class="etap">1 · Słowniczek</span><h2>Wniosek, decyzja, karta: trzy różne rzeczy</h2>
 <p>Na tej stacji uczysz się mówić o pobycie tak, jak mówi urząd. Potocznie wszystko bywa „kartą”. W prawie to są trzy różne rzeczy.</p>
-<div class="slowka"><div class="slowko"><span class="t">wniosek</span><span class="rej prawny">PRAWNY</span><span class="u">pismo, w którym prosisz urząd o załatwienie sprawy. Potocznie: „papiery”, „podanie”.</span></div><div class="slowko"><span class="t">organ</span><span class="rej prawny">PRAWNY</span><span class="u">urząd lub osoba, która z mocy prawa rozstrzyga sprawę, np. wojewoda.</span></div><div class="slowko"><span class="t">decyzja</span><span class="rej prawny">PRAWNY</span><span class="u">rozstrzygnięcie sprawy przez urząd, np. udzielenie zezwolenia albo odmowa. Potocznie: „odpowiedź z urzędu”.</span></div><div class="slowko"><span class="t">zezwolenie na pobyt czasowy</span><span class="rej prawny">PRAWNY</span><span class="u">to jest decyzja, czyli prawo do pobytu. Potocznie mówi się o nim: „karta pobytu”.</span></div><div class="slowko"><span class="t">karta pobytu</span><span class="rej prawny">PRAWNY</span><span class="u">dokument ze zdjęciem, wydawany po udzieleniu zezwolenia. Zezwolenie to decyzja, karta to dokument.</span></div><div class="slowko"><span class="t">legalny pobyt</span><span class="rej prawny">PRAWNY</span><span class="u">pobyt zgodny z prawem. Potocznie: „mam papiery”.</span></div><div class="slowko"><span class="t">braki formalne</span><span class="rej prawny">PRAWNY</span><span class="u">brak wymaganego elementu wniosku, np. podpisu, opłaty albo wymaganego załącznika. Potocznie: „brakuje papierów”.</span></div><div class="slowko"><span class="t">wezwanie</span><span class="rej prawny">PRAWNY</span><span class="u">pismo organu, w którym każe Ci coś zrobić w terminie. Potocznie: „list z urzędu”.</span></div><div class="slowko"><span class="t">bezczynność</span><span class="rej prawny">PRAWNY</span><span class="u">organ nie załatwia sprawy w terminie.</span></div><div class="slowko"><span class="t">urząd milczy</span><span class="rej potoczny">POTOCZNY</span><span class="u">tak mówi się o bezczynności. W piśmie do urzędu używaj słowa „bezczynność”.</span></div></div>
-<div class="pyt" data-ok="0"><p><strong>Dostałeś decyzję o udzieleniu zezwolenia. Co jest dokumentem ze zdjęciem?</strong></p><div class="wybory"><button class="wybor" type="button">karta pobytu</button><button class="wybor" type="button">zezwolenie</button><button class="wybor" type="button">wniosek</button></div><p class="male odslona" hidden>Zezwolenie to decyzja. Dokument ze zdjęciem to karta pobytu.</p></div>
+<div class="slowka"><div class="slowko"><span class="t">wniosek</span><span class="rej prawny">PRAWNY</span><span class="u">pismo, w którym prosisz urząd o załatwienie sprawy. Potocznie: „papiery”, „podanie”.</span></div><div class="slowko"><span class="t">organ</span><span class="rej prawny">PRAWNY</span><span class="u">urząd lub osoba, która z mocy prawa rozstrzyga sprawę, np. wojewoda.</span></div><div class="slowko"><span class="t">decyzja</span><span class="rej prawny">PRAWNY</span><span class="u">rozstrzygnięcie sprawy przez urząd, np. udzielenie zezwolenia albo odmowa. Potocznie: „odpowiedź z urzędu”.</span></div><div class="slowko"><span class="t">zezwolenie na pobyt czasowy</span><span class="rej prawny">PRAWNY</span><span class="u">to jest decyzja, czyli prawo do pobytu. Potocznie mówi się o nim: „karta pobytu”.</span></div><div class="slowko"><span class="t">karta pobytu</span><span class="rej prawny">PRAWNY</span><span class="u">dokument ze zdjęciem, wydawany po udzieleniu zezwolenia.</span></div><div class="slowko"><span class="t">legalny pobyt</span><span class="rej prawny">PRAWNY</span><span class="u">pobyt zgodny z prawem. Potocznie: „mam papiery”.</span></div><div class="slowko"><span class="t">braki formalne</span><span class="rej prawny">PRAWNY</span><span class="u">brak wymaganego elementu wniosku, np. podpisu, opłaty albo wymaganego załącznika. Potocznie: „brakuje papierów”.</span></div><div class="slowko"><span class="t">wezwanie</span><span class="rej prawny">PRAWNY</span><span class="u">pismo organu, w którym każe Ci coś zrobić w terminie. Potocznie: „list z urzędu”.</span></div><div class="slowko"><span class="t">bezczynność</span><span class="rej prawny">PRAWNY</span><span class="u">organ nie załatwia sprawy w terminie.</span></div><div class="slowko"><span class="t">urząd milczy</span><span class="rej potoczny">POTOCZNY</span><span class="u">tak mówi się o bezczynności. W piśmie do urzędu używaj słowa „bezczynność”.</span></div></div>
+<div class="pyt" data-ok="0"><p><strong>Dostałeś decyzję o udzieleniu zezwolenia. Co jest dokumentem ze zdjęciem?</strong></p><div class="wybory"><button class="wybor" type="button">karta pobytu</button><button class="wybor" type="button">zezwolenie</button><button class="wybor" type="button">wniosek</button></div><p class="male odslona" hidden>Dokument ze zdjęciem to karta pobytu.</p></div>
 </div></section>
 
 <section class="slajd" data-p="1" data-tytul="Quiz: stacja 1">
@@ -642,10 +661,10 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 
 <section class="slajd" data-p="2" data-tytul="Wniosek w MOS">
 <div class="wnetrze"><span class="etap">2 · MOS</span><h2>Od 27 kwietnia 2026 r. tylko przez MOS</h2>
-<p>Od 27 kwietnia 2026 r. wniosek o pobyt czasowy składasz wyłącznie elektronicznie. To samo dotyczy pobytu stałego i pobytu rezydenta długoterminowego UE. Robisz to w <span class="g" data-g="Moduł Obsługi Spraw: portal Urzędu do Spraw Cudzoziemców, mos.cudzoziemcy.gov.pl">MOS</span>.</p>
+<p>Od 27 kwietnia 2026 r. wniosek o pobyt czasowy składasz wyłącznie elektronicznie. To samo dotyczy pobytu stałego i pobytu rezydenta długoterminowego UE. Robisz to w <span class="g" data-g="Moduł Obsługi Spraw: portal Urzędu do Spraw Cudzoziemców, w którym od 27 kwietnia 2026 r. składa się wnioski o pobyt">MOS</span>.</p>
 <ul><li>Zakładasz konto w MOS. Logujesz się przez login.gov.pl.</li><li>Potrzebujesz Profilu Zaufanego albo kwalifikowanego podpisu elektronicznego.</li><li>Dołączasz skan wszystkich stron paszportu i zdjęcie cyfrowe.</li><li>Podpisujesz wniosek i wysyłasz go. Po wysłaniu system wydaje <span class="g" data-g="urzędowe poświadczenie odbioru: system wydaje je po wysłaniu wniosku. To dowód złożenia">UPO</span>.</li></ul>
 <p>Niektóre wnioski nadal składa się na papierze, np. o połączenie z rodziną, gdy cudzoziemiec jest za granicą.</p>
-<div class="pyt" data-ok="1"><p><strong>Kiedy wniosek uznaje się za złożony?</strong></p><div class="wybory"><button class="wybor" type="button">gdy wypełnisz formularz</button><button class="wybor" type="button">gdy podpiszesz go i dostaniesz UPO</button><button class="wybor" type="button">gdy przyjdziesz do urzędu</button></div><p class="male odslona" hidden>Wniosek jest złożony, gdy jest podpisany podpisem elektronicznym i system wydaje UPO, czyli urzędowe poświadczenie odbioru. UPO to dowód złożenia wniosku. Nie zastępuje ono zaświadczenia wojewody.</p></div>
+<div class="pyt" data-ok="1"><p><strong>Kiedy wniosek uznaje się za złożony?</strong></p><div class="wybory"><button class="wybor" type="button">gdy wypełnisz formularz w koncie MOS</button><button class="wybor" type="button">gdy podpiszesz go i dostaniesz UPO</button><button class="wybor" type="button">gdy przyjdziesz do urzędu z kompletem papierów</button></div><p class="male odslona" hidden>Wniosek jest złożony, gdy jest podpisany podpisem elektronicznym i system wydaje UPO, czyli urzędowe poświadczenie odbioru. UPO to dowód złożenia wniosku. Nie zastępuje ono zaświadczenia wojewody.</p></div>
 </div></section>
 
 <section class="slajd" data-p="2" data-tytul="Termin i legalny pobyt">
@@ -769,7 +788,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
   <h2>Sprawdź się: 5 pytań</h2>
   <div class="ramka akcent" id="quizyPodsum" hidden></div>
   <p>Jedno podejście do każdego pytania. Wynik widzisz na dole.</p>
-  <div class="pyt ramka" data-ok="1"><p><strong>1. Nie stawiasz się na wezwanie wojewody. Co może zrobić wojewoda?</strong></p><div class="wybory"><button class="wybor" type="button">przyznać zezwolenie bez odcisków palców</button><button class="wybor" type="button">umorzyć postępowanie w Twojej sprawie</button><button class="wybor" type="button">przedłużyć termin bez Twojego wniosku</button></div><p class="male odslona" hidden>Gdy cudzoziemiec nie stawi się na wezwanie, wojewoda umarza postępowanie.</p></div><div class="pyt ramka" data-ok="0"><p><strong>2. Wiza D kończy się w piątek. Kiedy jest ostatni dzień na wniosek?</strong></p><div class="wybory"><button class="wybor" type="button">w piątek</button><button class="wybor" type="button">w czwartek</button><button class="wybor" type="button">w poniedziałek po piątku</button></div><p class="male odslona" hidden>Wniosek składa się najpóźniej w ostatnim dniu legalnego pobytu.</p></div><div class="pyt ramka" data-ok="2"><p><strong>3. Czym różni się zezwolenie od karty pobytu?</strong></p><div class="wybory"><button class="wybor" type="button">to dwie nazwy tego samego dokumentu</button><button class="wybor" type="button">karta to decyzja, zezwolenie to dokument</button><button class="wybor" type="button">zezwolenie to decyzja, karta to dokument</button></div><p class="male odslona" hidden>Zezwolenie to decyzja administracyjna. Kartę wydaje się po jej uzyskaniu.</p></div><div class="pyt ramka" data-ok="2"><p><strong>4. Co się stanie, gdy nie uzupełnisz braków formalnych w terminie?</strong></p><div class="wybory"><button class="wybor" type="button">urząd rozpatrzy wniosek mimo braków</button><button class="wybor" type="button">dostaniesz zezwolenie z mniejszym zakresem</button><button class="wybor" type="button">wniosek zostanie pozostawiony bez rozpoznania</button></div><p class="male odslona" hidden>Kodeks postępowania administracyjnego przewiduje pozostawienie podania bez rozpoznania.</p></div><div class="pyt ramka" data-ok="1"><p><strong>5. Urząd nie załatwia sprawy w terminie. Który środek jest właściwy?</strong></p><div class="wybory"><button class="wybor" type="button">odwołanie</button><button class="wybor" type="button">ponaglenie</button><button class="wybor" type="button">wniosek o kartę</button></div><p class="male odslona" hidden>Ponaglenie przysługuje przy bezczynności i przewlekłości. Odwołanie dotyczy wydanej decyzji.</p></div>
+  <div class="pyt ramka" data-ok="1"><p><strong>1. Nie stawiasz się na wezwanie wojewody. Co może zrobić wojewoda?</strong></p><div class="wybory"><button class="wybor" type="button">przyznać zezwolenie bez odcisków palców</button><button class="wybor" type="button">umorzyć postępowanie w Twojej sprawie</button><button class="wybor" type="button">przedłużyć termin bez Twojego wniosku</button></div><p class="male odslona" hidden>Gdy cudzoziemiec nie stawi się na wezwanie, wojewoda umarza postępowanie.</p></div><div class="pyt ramka" data-ok="0"><p><strong>2. Wiza D kończy się w piątek. Kiedy jest ostatni dzień na wniosek?</strong></p><div class="wybory"><button class="wybor" type="button">w piątek</button><button class="wybor" type="button">w czwartek</button><button class="wybor" type="button">w poniedziałek po piątku</button></div><p class="male odslona" hidden>Wniosek składa się najpóźniej w ostatnim dniu legalnego pobytu.</p></div><div class="pyt ramka" data-ok="2"><p><strong>3. Czym różni się zezwolenie od karty pobytu?</strong></p><div class="wybory"><button class="wybor" type="button">to dwie nazwy tego samego dokumentu</button><button class="wybor" type="button">karta to decyzja, zezwolenie to dokument</button><button class="wybor" type="button">zezwolenie to decyzja, karta to dokument</button></div><p class="male odslona" hidden>Zezwolenie to decyzja administracyjna. Kartę wydaje się po jej uzyskaniu.</p></div><div class="pyt ramka" data-ok="1"><p><strong>4. Wysłałeś wniosek w MOS i masz zaświadczenie wojewody. Co możesz z nim zrobić?</strong></p><div class="wybory"><button class="wybor" type="button">podróżować po całej strefie Schengen przez rok</button><button class="wybor" type="button">wykazać, że Twój pobyt w Polsce jest legalny</button><button class="wybor" type="button">odebrać w urzędzie kartę pobytu bez czekania</button></div><p class="male odslona" hidden>Zaświadczenie potwierdza legalny pobyt w trakcie sprawy. Nie uprawnia do podróży po strefie Schengen.</p></div><div class="pyt ramka" data-ok="3"><p><strong>5. Ile dni ma wojewoda na decyzję, licząc od kompletnego wniosku?</strong></p><div class="wybory"><button class="wybor" type="button">90 dni</button><button class="wybor" type="button">30 dni</button><button class="wybor" type="button">120 dni</button><button class="wybor" type="button">60 dni</button></div><p class="male odslona" hidden>Ustawa daje wojewodzie 60 dni od kompletnego wniosku. Podstawa: art. 112a.</p></div>
   <p class="wynik-licznik" id="quizWynik"></p>
 </div>
 </section>
@@ -1217,6 +1236,13 @@ wsz('.g[data-g]').forEach(function(el){el.tabIndex=0;el.setAttribute('role','but
 document.addEventListener('click',zamknij);document.addEventListener('slajd',zamknij);
 addEventListener('keydown',function(e){if(e.key==='Escape')zamknij()});
 
+/* ---------- Słowniczek zwijany: przy więcej niż 4 hasłach użycie pokazuje się po stuknięciu ---------- */
+wsz('.slowka').forEach(function(sl){var h=wsz('.slowko',sl);if(h.length<5||!sl.querySelector('.slowko .u'))return;sl.classList.add('zwijane');
+  var p=document.createElement('p');p.className='slowka-pomoc';p.textContent='Stuknij hasło, żeby zobaczyć użycie i uwagi.';sl.parentNode.insertBefore(p,sl);
+  h.forEach(function(x){if(!x.querySelector('.u'))return;x.tabIndex=0;x.setAttribute('role','button');x.setAttribute('aria-expanded','false');
+    function t(){x.setAttribute('aria-expanded',x.getAttribute('aria-expanded')==='true'?'false':'true')}
+    x.addEventListener('click',function(e){if(e.target.closest('.g'))return;t()});x.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})})});
+
 /* ---------- Zadania do oddania ---------- */
 wsz('.zadanie[data-zadanie]').forEach(function(z){var id=z.dataset.zadanie,klucz=KL+'zad:'+id,dane={};try{dane=JSON.parse(gl(klucz)||'{}')}catch(e){}
   var tytul=z.dataset.tytul||('Zadanie '+id),pola=wsz('[data-pole]',z);
@@ -1224,10 +1250,11 @@ wsz('.zadanie[data-zadanie]').forEach(function(z){var id=z.dataset.zadanie,klucz
   var ai=document.createElement('div');ai.innerHTML='<label>Czy korzystałeś/korzystałaś z AI lub tłumacza? Do czego? (jedno zdanie)</label><input type="text" data-ai>';z.appendChild(ai);
   var pr=document.createElement('div');pr.className='przyciski';pr.innerHTML='<button class="btn glowny" type="button" data-kopiuj>Kopiuj odpowiedź</button><button class="btn" type="button" data-pobierz>Pobierz plik .txt</button>';z.appendChild(pr);
   var st=document.createElement('p');st.className='status';st.setAttribute('aria-live','polite');z.appendChild(st);
+  var tz=null;function zapisano(){st.textContent='Zapisano w telefonie.';clearTimeout(tz);tz=setTimeout(function(){if(st.textContent==='Zapisano w telefonie.')st.textContent=''},2500)}
   var ii=z.querySelector('[data-imie]'),ai2=z.querySelector('[data-ai]');ii.value=gl('cu:imie')||'';ai2.value=dane._ai||'';
   pola.forEach(function(p){var k=p.dataset.pole;if(dane[k])p.value=dane[k];var lc=null;if(p.dataset.slowa){lc=document.createElement('p');lc.className='licz';p.after(lc)}
     function licz(){if(lc){var n=(p.value.trim().match(/\S+/g)||[]).length;lc.textContent=n+' słów (cel: '+p.dataset.slowa+')'}}licz();
-    p.addEventListener('input',function(){dane[k]=p.value;gz(klucz,JSON.stringify(dane));licz()})});
+    p.addEventListener('input',function(){dane[k]=p.value;gz(klucz,JSON.stringify(dane));licz();zapisano()})});
   ii.addEventListener('input',function(){gz('cu:imie',ii.value)});ai2.addEventListener('input',function(){dane._ai=ai2.value;gz(klucz,JSON.stringify(dane))});
   function tekst(){var t=[(document.title||'').replace(/^\[prowadzący\] /,''),tytul,'Imię i nazwisko: '+(ii.value||'…'),''];
     pola.forEach(function(p){var lab=z.querySelector('label[for="'+p.id+'"]'),n=lab?lab.textContent:(p.getAttribute('aria-label')||p.dataset.pole);t.push(n);t.push(p.value.trim()||'(brak odpowiedzi)');t.push('')});

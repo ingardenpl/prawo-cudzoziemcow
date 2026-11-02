@@ -358,7 +358,7 @@ body.przewijanie .slajd{visibility:visible}
   --akcent:#E39A8E;--ok:#8FD0A8;--zle:#F09A9A;--wpia:#0A1226;--zloto:#D9B66A;--display:"Inter",sans-serif;--kino:"Cormorant Garamond",Georgia,serif;color-scheme:dark}
 :root{--st:#1B2A4A}
 :root[data-theme=dark]{--st:#D9B66A}
-:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#8A6A1F}
+:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#6E5310}
 :root[data-theme=dark] [data-p="1"]{--st:#9DB4E8}:root[data-theme=dark] [data-p="2"]{--st:#E39A8E}:root[data-theme=dark] [data-p="3"]{--st:#7FCDB8}:root[data-theme=dark] [data-p="4"]{--st:#D9B66A}
 #niebo,.mglawica,:root[data-theme=dark] #niebo,:root[data-theme=dark] .mglawica{display:none!important}
 html body,:root[data-theme=dark] body{background-color:var(--tlo);
@@ -407,7 +407,7 @@ html body .okladka p,html body .okladka .male{color:#E9DFC4}
 html body .okladka a{color:#E8CC86}
 html body .okladka .instrukcja,:root[data-theme=dark] .okladka .instrukcja{background:rgba(255,255,255,.06);border-color:color-mix(in srgb,#D9B66A 40%,transparent);color:#F4E7C5;-webkit-backdrop-filter:none;backdrop-filter:none;text-align:left}
 .okladka .glob{width:min(34vw,120px);height:auto;margin:0 auto .6em;display:block}
-.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 55%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
+.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 80%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
 html body .horyzont-ramka{display:none}
 
 /* karta przystanku: strona z pieczątką */
@@ -478,6 +478,25 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 @media print{.stempel{animation:none}}
 @media (prefers-reduced-motion: reduce){.stempel{animation:none}}
 
+/* audyt UX: większe pole dotyku przycisków w pasku górnym (wygląd bez zmian) */
+.gora button{position:relative}
+.gora button::after{content:"";position:absolute;inset:-6px -4px}
+/* widoczny fokus z klawiatury */
+.btn:focus-visible,.wybor:focus-visible,.gora button:focus-visible,.dol button:focus-visible,summary:focus-visible,.os button:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+
+/* audyt UX: długie słowa w tytule okładki na wąskich telefonach */
+html body .okladka h1{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+@media (max-width:360px){html body .okladka h1,:root[data-theme=dark] .okladka h1{letter-spacing:.04em;font-size:1.45rem}}
+/* słowniczek zwijany: termin i rejestr widać od razu, użycie po stuknięciu */
+.slowka.zwijane .slowko{cursor:pointer;position:relative;padding-right:34px}
+.slowka.zwijane .slowko::after{content:"+";position:absolute;right:12px;top:9px;font-family:var(--mono);font-weight:700;color:var(--tekst2)}
+.slowka.zwijane .slowko[aria-expanded=true]::after{content:"−"}
+.slowka.zwijane .slowko:not([aria-expanded=true]) .u{display:none}
+.slowka.zwijane .slowko:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+.slowka-pomoc{font-size:.82rem;color:var(--tekst2);margin:.2em 0 .4em}
+/* audyt UX: gęstsze pytania na najwęższych telefonach */
+@media (max-width:360px){html body .wybor{padding:8px 11px;min-height:42px;font-size:.92rem}html body .pyt.ramka{padding:10px 11px}html body .wybory{gap:6px}}
+
 html,body{height:auto;overflow:visible}
 .kurs{max-width:680px;margin:0 auto;padding:0 18px 60px}
 .kurs-okladka{background:radial-gradient(120% 80% at 50% 0%,#24375F,#1B2A4A 60%,#121D36);color:#F4E7C5;text-align:center;padding:calc(env(safe-area-inset-top) + 34px) 22px 30px;border-bottom:3px solid #D9B66A}
@@ -497,6 +516,23 @@ html,body{height:auto;overflow:visible}
 .metro .gotowa .tr{border-left:4px solid var(--akcent)}
 .metro .op{font-size:.86rem;color:var(--tekst2)}
 .metro .wyn{font-size:.8rem;color:var(--ok)}
+.teraz{margin:1.4em 0 .4em}
+.teraz a{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--wpia);color:#F4E7C5;text-decoration:none;border-radius:10px;padding:14px 16px;border:1px solid var(--zloto);min-height:56px}
+:root[data-theme=dark] .teraz a{background:var(--karta2)}
+.teraz .et{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#D9B66A}
+.teraz strong{font-size:1.05rem}
+.zadania{margin:1em 0;border:1px solid var(--linia);border-radius:10px;background:var(--karta)}
+.zadania summary{cursor:pointer;min-height:48px;display:flex;align-items:center;gap:8px;padding:0 14px;font-weight:650;list-style:none}
+.zadania summary::-webkit-details-marker{display:none}
+.zadania summary::after{content:"▾";margin-left:auto;color:var(--tekst2)}
+.zadania[open] summary::after{transform:rotate(180deg)}
+.zadania summary .licz{font-family:var(--mono);font-size:.75rem;color:var(--tekst2);font-weight:400}
+.zadania ol{list-style:none;margin:0;padding:0 10px 10px}
+.zadania li a{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;padding:9px 4px;border-top:1px solid var(--linia);text-decoration:none;color:var(--tekst)}
+.zadania .zn{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:700;border:2px solid var(--akcent);color:var(--akcent)}
+.zadania .op,.zadania .stan{display:block;font-size:.82rem;color:var(--tekst2)}
+.zadania li.szkic .stan{color:var(--ok)}
+.zadania li.niegotowe{opacity:.55}
 </style>
 </head>
 <body>
@@ -508,11 +544,23 @@ html,body{height:auto;overflow:visible}
   <p class="male" style="color:#E9DFC4">dr Karol Kasprowicz · Wyniki quizów i odpowiedzi zapisują się tylko w Twoim telefonie.</p>
 </header>
 <main class="kurs">
-  <ol class="metro"><li class="linia-czesc"><span>Część I: wjazd, pobyt i codzienność</span></li><li class="st gotowa"><a href="spotkanie-01/" data-nr="1"><span class="kr">1</span><span class="tr"><strong>Cudzoziemiec w polskim porządku prawnym</strong><span class="op">Konstytucja, ustawa o cudzoziemcach, kto jest cudzoziemcem</span><span class="wyn" data-wyn="1"></span></span></a></li><li class="st gotowa"><a href="spotkanie-02/" data-nr="2"><span class="kr">2</span><span class="tr"><strong>Wjazd i krótki pobyt</strong><span class="op">wizy, Schengen, EES</span><span class="wyn" data-wyn="2"></span></span></a></li><li class="st gotowa"><a href="spotkanie-03/" data-nr="3"><span class="kr">3</span><span class="tr"><strong>Zezwolenie na pobyt czasowy</strong><span class="op">procedura przed wojewodą, MOS</span><span class="wyn" data-wyn="3"></span></span></a></li><li class="st gotowa"><a href="spotkanie-04/" data-nr="4"><span class="kr">4</span><span class="tr"><strong>Student-cudzoziemiec</strong><span class="op">pobyt w trakcie studiów i po nich</span><span class="wyn" data-wyn="4"></span></span></a></li><li class="st"><div><span class="kr">5</span><span class="tr"><strong>Praca cudzoziemców</strong><span class="op">ustawa z 20 marca 2025 r. · w przygotowaniu</span></span></div></li><li class="st"><div><span class="kr">6</span><span class="tr"><strong>Rodzina, pobyt stały i prawa socjalne</strong><span class="op">łączenie rodzin, świadczenia · w przygotowaniu</span></span></div></li><li class="linia-czesc"><span>Część II: szczególne grupy i ochrona</span></li><li class="st"><div><span class="kr">7</span><span class="tr"><strong>Obywatele Ukrainy</strong><span class="op">od specustawy do karty CUKR · w przygotowaniu</span></span></div></li><li class="st"><div><span class="kr">8</span><span class="tr"><strong>Ochrona międzynarodowa</strong><span class="op">uchodźca, ochrona uzupełniająca · w przygotowaniu</span></span></div></li><li class="st"><div><span class="kr">9</span><span class="tr"><strong>Granica polsko-białoruska</strong><span class="op">bezpieczeństwo a prawo do azylu · w przygotowaniu</span></span></div></li><li class="st"><div><span class="kr">10</span><span class="tr"><strong>Kontrola legalności pobytu i powrót</strong><span class="op">środki ochrony prawnej, gdzie szukać pomocy · w przygotowaniu</span></span></div></li><li class="linia-czesc"><span>Część III: perspektywa europejska i światowa</span></li><li class="st"><div><span class="kr">11</span><span class="tr"><strong>Unia Europejska (1)</strong><span class="op">obywatele UE i migracja legalna · w przygotowaniu</span></span></div></li><li class="st"><div><span class="kr">12</span><span class="tr"><strong>Unia Europejska (2)</strong><span class="op">Pakt o migracji i azylu · w przygotowaniu</span></span></div></li><li class="st"><div><span class="kr">13</span><span class="tr"><strong>Obywatelstwo polskie</strong><span class="op">Karta Polaka, repatriacja · w przygotowaniu</span></span></div></li><li class="st"><div><span class="kr">14</span><span class="tr"><strong>Komparatystyka</strong><span class="op">USA, Kanada, Chiny, Brazylia, Singapur · w przygotowaniu</span></span></div></li><li class="linia-czesc"><span>Domknięcie</span></li><li class="st"><div><span class="kr">15</span><span class="tr"><strong>Synteza i test</strong><span class="op">zaliczenie · w przygotowaniu</span></span></div></li></ol>
+  <div class="teraz"><a id="teraz" href="spotkanie-01/"><span><span class="et" id="terazEt">Zacznij tutaj</span><strong id="terazTyt">Spotkanie 1</strong></span><span aria-hidden="true">›</span></a></div>
+  <details class="zadania"><summary>Zadania na ocenę <span class="licz" id="zadLicz">6 × 10 pkt</span></summary><ol><li data-zad="1" data-sp="3"><a href="spotkanie-03/"><span class="zn">1</span><span><strong>lista dokumentów do wniosku o pobyt czasowy</strong><span class="op">spotkanie 3 · 10 pkt</span><span class="stan">nie rozpoczęto</span></span></a></li><li data-zad="2" data-sp="4"><a href="spotkanie-04/"><span class="zn">2</span><span><strong>e-mail do Biura ds. Studentów Zagranicznych</strong><span class="op">spotkanie 4 · 10 pkt</span><span class="stan">nie rozpoczęto</span></span></a></li><li data-zad="3" data-sp="5"><a href="spotkanie-05/"><span class="zn">3</span><span><strong>pisemne rozwiązanie kazusu o pracy studenta</strong><span class="op">spotkanie 5 · 10 pkt</span><span class="stan">nie rozpoczęto</span></span></a></li><li data-zad="4" data-sp="10"><a href="spotkanie-10/"><span class="zn">4</span><span><strong>ponaglenie w sprawie przewlekłego postępowania</strong><span class="op">spotkanie 10 · 10 pkt</span><span class="stan">nie rozpoczęto</span></span></a></li><li data-zad="5" data-sp="13"><a href="spotkanie-13/"><span class="zn">5</span><span><strong>przepis o obywatelstwie przełożony na listę warunków</strong><span class="op">spotkanie 13 · 10 pkt</span><span class="stan">nie rozpoczęto</span></span></a></li><li data-zad="6" data-sp="14"><a href="spotkanie-14/"><span class="zn">6</span><span><strong>karta państwa („ambasady”)</strong><span class="op">spotkanie 14 · 10 pkt</span><span class="stan">nie rozpoczęto</span></span></a></li></ol>
+  <p class="male" style="padding:0 14px 12px">Szkic zadania zapisuje się w telefonie. Gotowe zadanie kopiujesz albo pobierasz jako plik i wysyłasz prowadzącemu.</p></details>
+  <ol class="metro"><li class="linia-czesc"><span>Część I: wjazd, pobyt i codzienność</span></li><li class="st gotowa"><a href="spotkanie-01/" data-nr="1"><span class="kr">1</span><span class="tr"><strong>Cudzoziemiec w polskim porządku prawnym</strong><span class="op">Konstytucja, ustawa o cudzoziemcach, kto jest cudzoziemcem</span><span class="wyn" data-wyn="1"></span></span></a></li><li class="st gotowa"><a href="spotkanie-02/" data-nr="2"><span class="kr">2</span><span class="tr"><strong>Wjazd i krótki pobyt</strong><span class="op">wizy, Schengen, EES</span><span class="wyn" data-wyn="2"></span></span></a></li><li class="st gotowa"><a href="spotkanie-03/" data-nr="3"><span class="kr">3</span><span class="tr"><strong>Zezwolenie na pobyt czasowy</strong><span class="op">procedura przed wojewodą, MOS</span><span class="wyn" data-wyn="3"></span></span></a></li><li class="st gotowa"><a href="spotkanie-04/" data-nr="4"><span class="kr">4</span><span class="tr"><strong>Student-cudzoziemiec</strong><span class="op">pobyt w trakcie studiów i po nich</span><span class="wyn" data-wyn="4"></span></span></a></li><li class="st gotowa"><a href="spotkanie-05/" data-nr="5"><span class="kr">5</span><span class="tr"><strong>Praca cudzoziemców</strong><span class="op">ustawa z 20 marca 2025 r.</span><span class="wyn" data-wyn="5"></span></span></a></li><li class="st gotowa"><a href="spotkanie-06/" data-nr="6"><span class="kr">6</span><span class="tr"><strong>Rodzina, pobyt stały i prawa socjalne</strong><span class="op">łączenie rodzin, świadczenia</span><span class="wyn" data-wyn="6"></span></span></a></li><li class="linia-czesc"><span>Część II: szczególne grupy i ochrona</span></li><li class="st gotowa"><a href="spotkanie-07/" data-nr="7"><span class="kr">7</span><span class="tr"><strong>Obywatele Ukrainy</strong><span class="op">od specustawy do karty CUKR</span><span class="wyn" data-wyn="7"></span></span></a></li><li class="st gotowa"><a href="spotkanie-08/" data-nr="8"><span class="kr">8</span><span class="tr"><strong>Ochrona międzynarodowa</strong><span class="op">uchodźca, ochrona uzupełniająca</span><span class="wyn" data-wyn="8"></span></span></a></li><li class="st gotowa"><a href="spotkanie-09/" data-nr="9"><span class="kr">9</span><span class="tr"><strong>Granica polsko-białoruska</strong><span class="op">bezpieczeństwo a prawo do azylu</span><span class="wyn" data-wyn="9"></span></span></a></li><li class="st gotowa"><a href="spotkanie-10/" data-nr="10"><span class="kr">10</span><span class="tr"><strong>Kontrola legalności pobytu i powrót</strong><span class="op">środki ochrony prawnej, gdzie szukać pomocy</span><span class="wyn" data-wyn="10"></span></span></a></li><li class="linia-czesc"><span>Część III: perspektywa europejska i światowa</span></li><li class="st gotowa"><a href="spotkanie-11/" data-nr="11"><span class="kr">11</span><span class="tr"><strong>Unia Europejska (1)</strong><span class="op">obywatele UE i migracja legalna</span><span class="wyn" data-wyn="11"></span></span></a></li><li class="st gotowa"><a href="spotkanie-12/" data-nr="12"><span class="kr">12</span><span class="tr"><strong>Unia Europejska (2)</strong><span class="op">Pakt o migracji i azylu</span><span class="wyn" data-wyn="12"></span></span></a></li><li class="st gotowa"><a href="spotkanie-13/" data-nr="13"><span class="kr">13</span><span class="tr"><strong>Obywatelstwo polskie</strong><span class="op">Karta Polaka, repatriacja</span><span class="wyn" data-wyn="13"></span></span></a></li><li class="st gotowa"><a href="spotkanie-14/" data-nr="14"><span class="kr">14</span><span class="tr"><strong>Komparatystyka</strong><span class="op">USA, Kanada, Chiny, Brazylia, Singapur</span><span class="wyn" data-wyn="14"></span></span></a></li><li class="linia-czesc"><span>Domknięcie</span></li><li class="st gotowa"><a href="spotkanie-15/" data-nr="15"><span class="kr">15</span><span class="tr"><strong>Synteza i test</strong><span class="op">zaliczenie</span><span class="wyn" data-wyn="15"></span></span></a></li></ol>
 </main>
 <script>
 (function(){var m=null;try{m=localStorage.getItem('cu:motyw')}catch(e){}if(m)document.documentElement.setAttribute('data-theme',m);
-document.querySelectorAll('[data-wyn]').forEach(function(el){var nr=el.dataset.wyn;try{var q=JSON.parse(localStorage.getItem('cu-z'+nr+':quizyP')||'{}'),k=Object.keys(q);if(k.length){var s=0,mm=0;k.forEach(function(x){s+=q[x][0];mm+=q[x][1]});el.textContent='✓ Pieczątki: '+k.length+' · quizy '+s+' z '+mm}else if(localStorage.getItem('cu-z'+nr+':slajd'))el.textContent='Otwarte';}catch(e){}})})();
+document.querySelectorAll('[data-wyn]').forEach(function(el){var nr=el.dataset.wyn;try{var q=JSON.parse(localStorage.getItem('cu-z'+nr+':quizyP')||'{}'),k=Object.keys(q);if(k.length){var s=0,mm=0;k.forEach(function(x){s+=q[x][0];mm+=q[x][1]});el.textContent='✓ Pieczątki: '+k.length+' · quizy '+s+' z '+mm}else if(localStorage.getItem('cu-z'+nr+':slajd'))el.textContent='Otwarte';}catch(e){}})
+var gotowe=[].slice.call(document.querySelectorAll('.metro .gotowa a')).map(function(a){return +a.dataset.nr});
+function tyt(nr){var a=document.querySelector('.metro a[data-nr="'+nr+'"] strong');return a?a.textContent:''}
+var ost=0;try{ost=+localStorage.getItem('cu:ostatnie')||0}catch(e){}
+if(ost&&gotowe.indexOf(ost)>=0){var t=document.getElementById('teraz');t.href='spotkanie-'+('0'+ost).slice(-2)+'/';document.getElementById('terazEt').textContent='Wróć do spotkania '+ost;document.getElementById('terazTyt').textContent=tyt(ost)}
+else if(gotowe.length){document.getElementById('terazTyt').textContent='Spotkanie '+gotowe[0]+': '+tyt(gotowe[0])}
+var sz=0;document.querySelectorAll('.zadania li').forEach(function(li){var sp=+li.dataset.sp,z=li.dataset.zad,d={};if(gotowe.indexOf(sp)<0){li.classList.add('niegotowe');li.querySelector('.stan').textContent='spotkanie w przygotowaniu';return}
+  try{d=JSON.parse(localStorage.getItem('cu-z'+sp+':zad:'+z)||'{}')}catch(e){}var w=Object.keys(d).filter(function(k){return k!=='_ai'&&(d[k]||'').trim()}).length;
+  if(w){sz++;li.classList.add('szkic');li.querySelector('.stan').textContent='✓ szkic zapisany w telefonie'}});
+document.getElementById('zadLicz').textContent='6 × 10 pkt'+(sz?' · szkice: '+sz:'')})();
 </script>
 </body>
 </html>

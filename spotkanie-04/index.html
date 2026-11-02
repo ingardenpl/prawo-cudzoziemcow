@@ -416,7 +416,7 @@ body.komputer .slajd::-webkit-scrollbar-thumb{background:rgba(160,180,210,.25);b
   --akcent:#E39A8E;--ok:#8FD0A8;--zle:#F09A9A;--wpia:#0A1226;--zloto:#D9B66A;--display:"Inter",sans-serif;--kino:"Cormorant Garamond",Georgia,serif;color-scheme:dark}
 :root{--st:#1B2A4A}
 :root[data-theme=dark]{--st:#D9B66A}
-:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#8A6A1F}
+:root [data-p="1"]{--st:#1B2A4A}:root [data-p="2"]{--st:#8C1D2C}:root [data-p="3"]{--st:#1F6B5C}:root [data-p="4"]{--st:#6E5310}
 :root[data-theme=dark] [data-p="1"]{--st:#9DB4E8}:root[data-theme=dark] [data-p="2"]{--st:#E39A8E}:root[data-theme=dark] [data-p="3"]{--st:#7FCDB8}:root[data-theme=dark] [data-p="4"]{--st:#D9B66A}
 #niebo,.mglawica,:root[data-theme=dark] #niebo,:root[data-theme=dark] .mglawica{display:none!important}
 html body,:root[data-theme=dark] body{background-color:var(--tlo);
@@ -465,7 +465,7 @@ html body .okladka p,html body .okladka .male{color:#E9DFC4}
 html body .okladka a{color:#E8CC86}
 html body .okladka .instrukcja,:root[data-theme=dark] .okladka .instrukcja{background:rgba(255,255,255,.06);border-color:color-mix(in srgb,#D9B66A 40%,transparent);color:#F4E7C5;-webkit-backdrop-filter:none;backdrop-filter:none;text-align:left}
 .okladka .glob{width:min(34vw,120px);height:auto;margin:0 auto .6em;display:block}
-.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 55%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
+.okladka .mrz{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:color-mix(in srgb,#E9DFC4 80%,transparent);margin-top:1.4em;word-break:break-all;max-width:34ch}
 html body .horyzont-ramka{display:none}
 
 /* karta przystanku: strona z pieczątką */
@@ -536,6 +536,25 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 @media print{.stempel{animation:none}}
 @media (prefers-reduced-motion: reduce){.stempel{animation:none}}
 
+/* audyt UX: większe pole dotyku przycisków w pasku górnym (wygląd bez zmian) */
+.gora button{position:relative}
+.gora button::after{content:"";position:absolute;inset:-6px -4px}
+/* widoczny fokus z klawiatury */
+.btn:focus-visible,.wybor:focus-visible,.gora button:focus-visible,.dol button:focus-visible,summary:focus-visible,.os button:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+
+/* audyt UX: długie słowa w tytule okładki na wąskich telefonach */
+html body .okladka h1{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+@media (max-width:360px){html body .okladka h1,:root[data-theme=dark] .okladka h1{letter-spacing:.04em;font-size:1.45rem}}
+/* słowniczek zwijany: termin i rejestr widać od razu, użycie po stuknięciu */
+.slowka.zwijane .slowko{cursor:pointer;position:relative;padding-right:34px}
+.slowka.zwijane .slowko::after{content:"+";position:absolute;right:12px;top:9px;font-family:var(--mono);font-weight:700;color:var(--tekst2)}
+.slowka.zwijane .slowko[aria-expanded=true]::after{content:"−"}
+.slowka.zwijane .slowko:not([aria-expanded=true]) .u{display:none}
+.slowka.zwijane .slowko:focus-visible{outline:3px solid var(--zloto);outline-offset:2px}
+.slowka-pomoc{font-size:.82rem;color:var(--tekst2);margin:.2em 0 .4em}
+/* audyt UX: gęstsze pytania na najwęższych telefonach */
+@media (max-width:360px){html body .wybor{padding:8px 11px;min-height:42px;font-size:.92rem}html body .pyt.ramka{padding:10px 11px}html body .wybory{gap:6px}}
+
 </style>
 </head>
 <body>
@@ -601,7 +620,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 <div class="slowka">
 <div class="slowko"><span class="t">kształcenie się na studiach</span><span class="rej prawny">PRAWNY</span><span class="u">potocznie: „studiuję”. Tak nazywa się cel pobytu w zezwoleniu na pobyt czasowy.</span></div>
 <div class="slowko"><span class="t">skreślenie z listy studentów</span><span class="rej prawny">PRAWNY</span><span class="u">potocznie: „wyrzucili mnie ze studiów”. To decyzja uczelni. Kończy status studenta.</span></div>
-<div class="slowko"><span class="t">cofnięcie zezwolenia</span><span class="rej prawny">PRAWNY</span><span class="u">potocznie: „zabrali mi kartę”. Cofnięcie dotyczy zezwolenia, czyli decyzji. Karta jest dokumentem.</span></div>
+<div class="slowko"><span class="t">cofnięcie zezwolenia</span><span class="rej prawny">PRAWNY</span><span class="u">potocznie: „zabrali mi kartę”. Cofnięcie dotyczy zezwolenia, czyli decyzji.</span></div>
 <div class="slowko"><span class="t">urlop dziekański</span><span class="rej prawny">PRAWNY</span><span class="u">potocznie: „dziekanka”. W ustawie: urlop od zajęć. Student zostaje na liście studentów.</span></div>
 <div class="slowko"><span class="t">zaświadczenie</span><span class="rej prawny">PRAWNY</span><span class="u">potocznie: „papier z uczelni”. Urzędowy dokument, który potwierdza fakt.</span></div>
 <div class="slowko"><span class="t">legitymacja studencka</span><span class="rej prawny">PRAWNY</span><span class="u">potocznie: „legitka”. Karta potwierdzająca status studenta. Nie jest zezwoleniem na pobyt.</span></div>
@@ -642,7 +661,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 <div class="kafel"><h3>Pieniądze</h3><p>środki na utrzymanie, powrót i koszty studiów</p></div>
 <div class="kafel"><h3>Uczelnia</h3><p>uczelnia zatwierdzona, chyba że to publiczna uczelnia akademicka, jak UMCS</p></div>
 </div>
-<p class="male">Od 27 kwietnia 2026 r. nie dołączasz osobnego zaświadczenia uczelni. Uczelnia wypełnia załącznik do wniosku w <span class="g" data-g="Moduł Obsługi Spraw: portal Urzędu do Spraw Cudzoziemców, przez który składa się wniosek">MOS</span>, a wojewoda sprawdza Twoje dane w systemie POL-on.</p>
+<p class="male">Od 27 kwietnia 2026 r. nie dołączasz osobnego zaświadczenia uczelni. Uczelnia wypełnia załącznik do wniosku w <span class="g" data-g="Moduł Obsługi Spraw: portal Urzędu do Spraw Cudzoziemców, w którym od 27 kwietnia 2026 r. składa się wnioski o pobyt">MOS</span>, a wojewoda sprawdza Twoje dane w systemie POL-on.</p>
 <div class="przewiduj" data-min="0" data-max="36" data-krok="1" data-start="12" data-wynik="15" data-jedn=" miesięcy" data-wynik-etykieta="Pierwsze zezwolenie"><p><strong>Na ile miesięcy wydaje się pierwsze zezwolenie na I roku, gdy nie ma programu wymiany?</strong></p><p class="odslona" hidden>Na 15 miesięcy. Kolejne zezwolenia: na okres studiów plus 3 miesiące, nie dłużej niż 3 lata. Podstawa: art. 145 ust. 1 i 4.</p></div>
 <div class="zapamietaj"><p>Pobyt „na studia” ma jeden cel. Gdy cel się kończy, pobyt jest zagrożony.</p></div>
 </div></section>
@@ -662,7 +681,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 <p>Skreślenie to decyzja uczelni. Uczelnia musi o niej powiadomić wojewodę.</p>
 <blockquote class="przepis"><span class="zrodlo">Ustawa o cudzoziemcach, art. 149 ust. 3</span>Rektor uczelni lub kierownik innej jednostki prowadzącej studia niezwłocznie zawiadamia pisemnie wojewodę, który udzielił cudzoziemcowi zezwolenia, o którym mowa w art. 144, o skreśleniu cudzoziemca z listy studentów lub doktorantów.</blockquote>
 <blockquote class="przepis"><span class="zrodlo">Ustawa o cudzoziemcach, art. 148 ust. 2</span>Cudzoziemcowi można cofnąć zezwolenie, o którym mowa w art. 144, gdy został skreślony z listy studentów lub doktorantów.</blockquote>
-<div class="pyt" data-ok="0"><p><strong>Słowo „można” w art. 148 ust. 2 oznacza, że:</strong></p><div class="wybory"><button class="wybor" type="button">wojewoda ocenia sprawę i może zdecydować inaczej</button><button class="wybor" type="button">wojewoda zawsze cofa zezwolenie</button></div><p class="male odslona" hidden>Zezwolenie nie wygasa samo. Potrzebna jest decyzja. Dla języka prawnego: „można” = swoboda oceny, „cofa się” = obowiązek.</p></div>
+<div class="pyt" data-ok="0"><p><strong>Słowo „można” w art. 148 ust. 2 oznacza, że:</strong></p><div class="wybory"><button class="wybor" type="button">wojewoda ocenia sprawę i może zdecydować inaczej</button><button class="wybor" type="button">wojewoda zawsze musi cofnąć zezwolenie w takiej sytuacji</button></div><p class="male odslona" hidden>Zezwolenie nie wygasa samo. Potrzebna jest decyzja. Dla języka prawnego: „można” = swoboda oceny, „cofa się” = obowiązek.</p></div>
 <div class="zapamietaj"><p>Skreślenie z listy studentów nie jest tym samym co urlop dziekański. Na urlopie zostajesz na liście.</p></div>
 </div></section>
 
@@ -683,7 +702,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 <div class="zakl-panel"><p>Przyjęcie na magisterium daje podstawę do kolejnego zezwolenia „na studia”. Wniosek składa się zanim skończy się legalny pobyt (spotkanie 3). Podstawa: art. 144.</p></div>
 <div class="zakl-panel"><blockquote class="przepis"><span class="zrodlo">Ustawa o cudzoziemcach, art. 186 ust. 1 pkt 6</span>jest absolwentem polskiej uczelni i poszukuje na terytorium Rzeczypospolitej Polskiej pracy lub planuje rozpocząć wykonywanie działalności gospodarczej na tym terytorium</blockquote><p>Zezwolenie wydaje się na <strong>9 miesięcy</strong>, jednorazowo, bezpośrednio po zakończeniu studiów. To wdrożenie dyrektywy (UE) 2016/801. Podstawa: art. 190 pkt 3.</p></div>
 <div class="zakl-panel"><p>Student może przenieść część studiów do innego państwa UE. Szczegóły tylko do wiadomości na ten moment. Podstawa: art. 149a–149b.</p></div></div>
-<div class="pyt" data-ok="2"><p><strong>Kiedy „poszukuje pracy” daje prawo do zezwolenia z art. 186 ust. 1 pkt 6?</strong></p><div class="wybory"><button class="wybor" type="button">zawsze, gdy ktoś tak napisze</button><button class="wybor" type="button">tylko w pierwszym roku studiów</button><button class="wybor" type="button">gdy jest się absolwentem polskiej uczelni</button></div><p class="male odslona" hidden>Przepis wymaga bycia absolwentem polskiej uczelni. Do pracy w czasie studiów wrócimy na spotkaniu 5.</p></div>
+<div class="pyt" data-ok="2"><p><strong>Kiedy „poszukuje pracy” daje prawo do zezwolenia z art. 186 ust. 1 pkt 6?</strong></p><div class="wybory"><button class="wybor" type="button">zawsze, gdy ktoś napisze to we wniosku</button><button class="wybor" type="button">tylko w pierwszym roku studiów na polskiej uczelni</button><button class="wybor" type="button">gdy jest się absolwentem polskiej uczelni</button></div><p class="male odslona" hidden>Przepis wymaga bycia absolwentem polskiej uczelni. Do pracy w czasie studiów wrócimy na spotkaniu 5.</p></div>
 </div></section>
 
 <section class="slajd" data-p="2" data-tytul="Quiz: stacja 2">
@@ -736,7 +755,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
 <details class="krok"><summary>Pytanie 1: czy podano podstawę prawną?</summary><p>Czy para wskazała artykuł i go poprawnie nazwała, na przykład art. 148 ust. 2 albo art. 149 ust. 3?</p></details>
 <details class="krok"><summary>Pytanie 2: czy rozróżniono „może” i „musi”?</summary><p>Czy para nie napisała, że zezwolenie wygasa samo po skreśleniu?</p></details>
 <details class="krok"><summary>Pytanie 3: czy użyto słów prawnych?</summary><p>Czy w odpowiedzi jest „zezwolenie”, „cofnięcie”, „skreślenie”, a nie „karta zabrana”?</p></details>
-<div class="pyt" data-ok="0"><p><strong>Skreślenie z listy studentów automatycznie kończy zezwolenie z art. 144?</strong></p><div class="wybory"><button class="wybor" type="button">nie, organ może je cofnąć decyzją</button><button class="wybor" type="button">tak, od razu</button></div><p class="male odslona" hidden>Zezwolenie wygasa z mocy prawa tylko w sytuacjach z art. 102, na przykład po otrzymaniu kolejnego zezwolenia. Skreślenie jest podstawą do cofnięcia.</p></div>
+<div class="pyt" data-ok="0"><p><strong>Skreślenie z listy studentów automatycznie kończy zezwolenie z art. 144?</strong></p><div class="wybory"><button class="wybor" type="button">nie, organ może je cofnąć decyzją</button><button class="wybor" type="button">tak, zezwolenie wygasa od razu po skreśleniu</button></div><p class="male odslona" hidden>Zezwolenie wygasa z mocy prawa tylko w sytuacjach z art. 102, na przykład po otrzymaniu kolejnego zezwolenia. Skreślenie jest podstawą do cofnięcia.</p></div>
 </div></section>
 
 <section class="slajd" data-p="3" data-tytul="Quiz: stacja 3">
@@ -832,7 +851,7 @@ html body .mapa text.et,:root[data-theme=dark] .mapa text.et{stroke:var(--tlo)}
   <h2>Sprawdź się: 5 pytań</h2>
   <div class="ramka akcent" id="quizyPodsum" hidden></div>
   <p>Jedno podejście do każdego pytania. Wynik widzisz na dole.</p>
-  <div class="pyt ramka" data-ok="1"><p><strong>1. Jakie zdarzenie obowiązuje uczelnię zgłosić wojewodzie w sprawie cudzoziemca z zezwoleniem z art. 144?</strong></p><div class="wybory"><button class="wybor" type="button">urlop dziekański</button><button class="wybor" type="button">skreślenie z listy studentów</button><button class="wybor" type="button">zmianę adresu e-mail</button></div><p class="male odslona" hidden>Art. 149 ust. 3: uczelnia niezwłocznie zawiadamia o skreśleniu.</p></div><div class="pyt ramka" data-ok="1"><p><strong>2. Gdzie jest wymóg poziomu B2 dla cudzoziemca na studia?</strong></p><div class="wybory"><button class="wybor" type="button">w art. 144 ust. 1 ustawy o cudzoziemcach</button><button class="wybor" type="button">w art. 70 PSWiN, dla rekrutacji</button><button class="wybor" type="button">w ustawie o języku polskim</button></div><p class="male odslona" hidden>To uczelnia weryfikuje język przy rekrutacji, art. 70 ust. 5a–5e PSWiN.</p></div><div class="pyt ramka" data-ok="1"><p><strong>3. Który limit dotyczy uczelni?</strong></p><div class="wybory"><button class="wybor" type="button">10% cudzoziemców wśród wszystkich studentów</button><button class="wybor" type="button">50% cudzoziemców wśród wszystkich studentów</button><button class="wybor" type="button">limit zależy od decyzji każdego wojewody</button></div><p class="male odslona" hidden>Art. 323a ust. 1 PSWiN.</p></div><div class="pyt ramka" data-ok="2"><p><strong>4. Co potwierdza Karta Polaka?</strong></p><div class="wybory"><button class="wybor" type="button">prawo do pobytu przez cały czas studiów</button><button class="wybor" type="button">zezwolenie na pobyt czasowy po dyplomie</button><button class="wybor" type="button">polskie pochodzenie jej posiadacza</button></div><p class="male odslona" hidden>Karta Polaka nie jest zezwoleniem na pobyt. Potwierdza polskie pochodzenie.</p></div><div class="pyt ramka" data-ok="2"><p><strong>5. Który zwrot jest formalny?</strong></p><div class="wybory"><button class="wybor" type="button">Odpisz mi, jak będziesz miał czas, dzięki</button><button class="wybor" type="button">Daj znać, kiedy dokument będzie gotowy</button><button class="wybor" type="button">Będę wdzięczny/wdzięczna za odpowiedź do 15 grudnia</button></div><p class="male odslona" hidden>Rejestr formalny: „będę wdzięczny/wdzięczna”, „uprzejmie proszę”.</p></div>
+  <div class="pyt ramka" data-ok="1"><p><strong>1. Jakie zdarzenie obowiązuje uczelnię zgłosić wojewodzie w sprawie cudzoziemca z zezwoleniem z art. 144?</strong></p><div class="wybory"><button class="wybor" type="button">urlop dziekański na jeden semestr</button><button class="wybor" type="button">skreślenie z listy studentów</button><button class="wybor" type="button">zmianę adresu e-mail w systemie uczelni</button></div><p class="male odslona" hidden>Art. 149 ust. 3: uczelnia niezwłocznie zawiadamia o skreśleniu.</p></div><div class="pyt ramka" data-ok="0"><p><strong>2. Od kiedy nie dołączasz do wniosku o zezwolenie na studia zaświadczenia uczelni, bo uczelnia wypełnia załącznik w MOS?</strong></p><div class="wybory"><button class="wybor" type="button">od 27 kwietnia 2026 r.</button><button class="wybor" type="button">od 1 października 2025 r.</button><button class="wybor" type="button">od 1 stycznia 2027 r.</button></div><p class="male odslona" hidden>Od 27 kwietnia 2026 r. uczelnia wypełnia załącznik w MOS, a wojewoda sprawdza dane w POL-on.</p></div><div class="pyt ramka" data-ok="1"><p><strong>3. Który limit dotyczy uczelni?</strong></p><div class="wybory"><button class="wybor" type="button">10% cudzoziemców wśród wszystkich studentów</button><button class="wybor" type="button">50% cudzoziemców wśród wszystkich studentów</button><button class="wybor" type="button">limit zależy od decyzji każdego wojewody</button></div><p class="male odslona" hidden>Art. 323a ust. 1 PSWiN.</p></div><div class="pyt ramka" data-ok="2"><p><strong>4. Co potwierdza Karta Polaka?</strong></p><div class="wybory"><button class="wybor" type="button">prawo do pobytu przez cały czas studiów</button><button class="wybor" type="button">zezwolenie na pobyt czasowy po dyplomie</button><button class="wybor" type="button">polskie pochodzenie jej posiadacza</button></div><p class="male odslona" hidden>Karta Polaka nie jest zezwoleniem na pobyt. Potwierdza polskie pochodzenie.</p></div><div class="pyt ramka" data-ok="2"><p><strong>5. Który zwrot jest formalny?</strong></p><div class="wybory"><button class="wybor" type="button">Odpisz mi, jak będziesz miał czas, dzięki</button><button class="wybor" type="button">Daj znać, kiedy dokument będzie gotowy</button><button class="wybor" type="button">Będę wdzięczny/wdzięczna za odpowiedź do 15 grudnia</button></div><p class="male odslona" hidden>Rejestr formalny: „będę wdzięczny/wdzięczna”, „uprzejmie proszę”.</p></div>
   <p class="wynik-licznik" id="quizWynik"></p>
 </div>
 </section>
@@ -1280,6 +1299,13 @@ wsz('.g[data-g]').forEach(function(el){el.tabIndex=0;el.setAttribute('role','but
 document.addEventListener('click',zamknij);document.addEventListener('slajd',zamknij);
 addEventListener('keydown',function(e){if(e.key==='Escape')zamknij()});
 
+/* ---------- Słowniczek zwijany: przy więcej niż 4 hasłach użycie pokazuje się po stuknięciu ---------- */
+wsz('.slowka').forEach(function(sl){var h=wsz('.slowko',sl);if(h.length<5||!sl.querySelector('.slowko .u'))return;sl.classList.add('zwijane');
+  var p=document.createElement('p');p.className='slowka-pomoc';p.textContent='Stuknij hasło, żeby zobaczyć użycie i uwagi.';sl.parentNode.insertBefore(p,sl);
+  h.forEach(function(x){if(!x.querySelector('.u'))return;x.tabIndex=0;x.setAttribute('role','button');x.setAttribute('aria-expanded','false');
+    function t(){x.setAttribute('aria-expanded',x.getAttribute('aria-expanded')==='true'?'false':'true')}
+    x.addEventListener('click',function(e){if(e.target.closest('.g'))return;t()});x.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})})});
+
 /* ---------- Zadania do oddania ---------- */
 wsz('.zadanie[data-zadanie]').forEach(function(z){var id=z.dataset.zadanie,klucz=KL+'zad:'+id,dane={};try{dane=JSON.parse(gl(klucz)||'{}')}catch(e){}
   var tytul=z.dataset.tytul||('Zadanie '+id),pola=wsz('[data-pole]',z);
@@ -1287,10 +1313,11 @@ wsz('.zadanie[data-zadanie]').forEach(function(z){var id=z.dataset.zadanie,klucz
   var ai=document.createElement('div');ai.innerHTML='<label>Czy korzystałeś/korzystałaś z AI lub tłumacza? Do czego? (jedno zdanie)</label><input type="text" data-ai>';z.appendChild(ai);
   var pr=document.createElement('div');pr.className='przyciski';pr.innerHTML='<button class="btn glowny" type="button" data-kopiuj>Kopiuj odpowiedź</button><button class="btn" type="button" data-pobierz>Pobierz plik .txt</button>';z.appendChild(pr);
   var st=document.createElement('p');st.className='status';st.setAttribute('aria-live','polite');z.appendChild(st);
+  var tz=null;function zapisano(){st.textContent='Zapisano w telefonie.';clearTimeout(tz);tz=setTimeout(function(){if(st.textContent==='Zapisano w telefonie.')st.textContent=''},2500)}
   var ii=z.querySelector('[data-imie]'),ai2=z.querySelector('[data-ai]');ii.value=gl('cu:imie')||'';ai2.value=dane._ai||'';
   pola.forEach(function(p){var k=p.dataset.pole;if(dane[k])p.value=dane[k];var lc=null;if(p.dataset.slowa){lc=document.createElement('p');lc.className='licz';p.after(lc)}
     function licz(){if(lc){var n=(p.value.trim().match(/\S+/g)||[]).length;lc.textContent=n+' słów (cel: '+p.dataset.slowa+')'}}licz();
-    p.addEventListener('input',function(){dane[k]=p.value;gz(klucz,JSON.stringify(dane));licz()})});
+    p.addEventListener('input',function(){dane[k]=p.value;gz(klucz,JSON.stringify(dane));licz();zapisano()})});
   ii.addEventListener('input',function(){gz('cu:imie',ii.value)});ai2.addEventListener('input',function(){dane._ai=ai2.value;gz(klucz,JSON.stringify(dane))});
   function tekst(){var t=[(document.title||'').replace(/^\[prowadzący\] /,''),tytul,'Imię i nazwisko: '+(ii.value||'…'),''];
     pola.forEach(function(p){var lab=z.querySelector('label[for="'+p.id+'"]'),n=lab?lab.textContent:(p.getAttribute('aria-label')||p.dataset.pole);t.push(n);t.push(p.value.trim()||'(brak odpowiedzi)');t.push('')});
